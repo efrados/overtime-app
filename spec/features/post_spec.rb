@@ -52,6 +52,7 @@ describe 'navigate' do
       expect(User.last.posts.last.rationale).to eq('User association')
     end
   end
+
   describe 'new' do
     it 'has a link from the homepage' do
       visit root_path
@@ -59,15 +60,27 @@ describe 'navigate' do
       expect(page.status_code).to eq(200)
     end
   end
+
+  describe 'delete' do
+    it 'can be deleted' do
+      @post = create(:post)
+      visit posts_path
+      click_on "destroy_#{post.id}_from_index"
+      expect(page.status_code).to eq(200)
+    end
+  end
+
   describe 'edit' do
     before do
       @post = create(:post)
     end
+
     it 'can be reached by clicking edit in the index page' do
       visit posts_path
       click_on "edit_#{@post.id}"
       expect(page.status_code).to eq(200)
     end
+
     it 'can be edited' do
       visit edit_post_path(@post)
       fill_in 'post[date]', with: Date.today + 1.day
