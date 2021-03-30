@@ -14,6 +14,7 @@ gem 'devise', '~> 4.7', '>= 4.7.3'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 group :development, :test do
+  gem "factory_bot_rails"
   gem 'rspec-rails'
   gem 'sqlite3', '~> 1.4'
   gem "database_cleaner", git: 'https://github.com/bmabey/database_cleaner.git'
