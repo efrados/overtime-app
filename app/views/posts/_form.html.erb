@@ -1,4 +1,5 @@
 <%= form_for @post do |f| %>
+  <%= render "shared/errors", :target => @post %>
   <div class="form-group">
     <%= f.label :date %>
     <%= f.date_field :date, class: "form-control" %>
