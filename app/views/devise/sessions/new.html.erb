@@ -2,7 +2,6 @@
 <div class="row">
   <div class="col-6">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <%= render "shared/errors", :target => @user %>
 
       <div class="form-group">
         <%= f.label :email %>
