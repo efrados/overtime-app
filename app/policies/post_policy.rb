@@ -1,5 +1,5 @@
 class PostPolicy <  ApplicationPolicy
   def update?
-    update.user_id == user.id || admin_types.include?(user.type)
+    record.user_id == user.id || self.admin_types.include?(user.type)
   end
 end
