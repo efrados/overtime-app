@@ -22,6 +22,7 @@ describe 'navigate' do
       post1 = build_stubbed(:post)
       post2 = build_stubbed(:second_post)
       visit posts_path
+
       expect(page).to have_content(/Rationale|Content/)
     end
   end
@@ -57,6 +58,7 @@ describe 'navigate' do
     it 'has a link from the homepage' do
       visit root_path
       click_on "new_post_from_nav"
+
       expect(page.status_code).to eq(200)
     end
   end
@@ -66,27 +68,35 @@ describe 'navigate' do
       @post = create(:post)
       visit posts_path
       click_on "destroy_#{@post.id}_from_index"
+
       expect(page.status_code).to eq(200)
     end
   end
 
   describe 'edit' do
     before do
-      @post = create(:post)
-    end
-
-    it 'can be reached by clicking edit in the index page' do
-      visit posts_path
-      click_on "edit_#{@post.id}"
-      expect(page.status_code).to eq(200)
+      @edit_user = User.create(first_name: "asdf", last_name: "asdf", email: "asdfasdf@asdf.com", password: "asdfasdf", password_confirmation: "asdfasdf")
+      login_as(@edit_user, :scope => :user)
+      @edit_post = Post.create(date: Date.today, rationale: "asdf", user_id: @edit_user.id)
     end
 
     it 'can be edited' do
-      visit edit_post_path(@post)
+      visit edit_post_path(@edit_post)
       fill_in 'post[date]', with: Date.today + 1.day
       fill_in 'post[rationale]', with: 'Edited Rationale'
       click_button 'Save'
+
       expect(page).to have_content('Edited Rationale')
+    end
+
+    it 'cannot be edited by a non authorized user' do
+      logout(:user)
+      non_authorized_user = create(:non_authorized_user)
+      login_as(non_authorized_user, :scope => :user)
+
+      visit edit_post_path(@edit_post)
+
+      expect(current_path).to eq(root_path)
     end
   end
 end
