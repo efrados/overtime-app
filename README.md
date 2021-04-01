@@ -10,7 +10,8 @@ X AdminUser -> STI
 ## Features
 - Approve Workflow
 - SmS sending -> link approval or overtime input
-- Administrate admin dashboard
+- x Administrate admin dashboard
+- Block non admin guest users
 - Email summary to managers approval
 - Needs to be documented if employee did not log overtime
 
