@@ -5,7 +5,7 @@
   <td><%= truncate(post.rationale) %></td>
   <td><%= status_label post.status %></td>
   <td>
-    <%= link_to 'Edit', edit_post_path(post),id: "edit_#{post.id}" %>
+    <%= link_to 'Edit', edit_post_path(post),id: "edit_#{post.id}" if policy(post).update? %>
     <%= link_to 'Destroy', post_path(post), method: :delete, id: "destroy_#{post.id}_from_index", data: {confirm: "Are you sure?"} %>
   </td>
 </tr>
